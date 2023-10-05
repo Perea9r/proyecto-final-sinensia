@@ -36,7 +36,8 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public void eliminarMenu(int idMenu) {
+    public List<Menu> eliminarMenu(int idMenu) {
         menuRepository.deleteById(idMenu);
+        return menuRepository.findAll();
     }
 }

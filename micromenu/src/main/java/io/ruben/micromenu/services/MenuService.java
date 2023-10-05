@@ -13,5 +13,5 @@ public interface MenuService {
 
     Menu crearMenu(Menu menu);
 
-    void eliminarMenu(int idMenu);
+    List<Menu> eliminarMenu(int idMenu);
 }

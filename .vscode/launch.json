@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-MicromenuApplication<micromenu>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "io.ruben.micromenu.MicromenuApplication",
+            "projectName": "micromenu",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
