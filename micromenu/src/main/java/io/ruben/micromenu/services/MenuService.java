@@ -5,13 +5,13 @@ import java.util.List;
 import io.ruben.micromenu.models.Menu;
 
 public interface MenuService {
-    List<Menu> getMenus();
+    List<Menu> getMenu();
 
-    Menu actualizarMenu(Menu menu);
+    void actualizarMenu(int idMenu, int stock);
 
     Menu buscarMenu(int idMenu);
 
-    Menu crearMenu(Menu menu);
+    double buscarPrecioProducto(int idMenu);
 
-    List<Menu> eliminarMenu(int idMenu);
+    int buscarStockProducto(int idMenu);
 }

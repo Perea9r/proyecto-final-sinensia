@@ -12,32 +12,34 @@ import io.ruben.micromenu.repositories.MenuRepository;
 @Service
 public class MenuServiceImpl implements MenuService {
     @Autowired
-    private MenuRepository menuRepository;
+    MenuRepository repository;
 
-    @Override
-    public List<Menu> getMenus() {
-        return menuRepository.findAll();
+    public List<Menu> getMenu() {
+        return repository.findAll();
     }
 
     @Override
-    public Menu actualizarMenu(Menu menu) {
-        return menuRepository.save(menu);
+    public void actualizarMenu(int idMenu, int stock) {
+        repository.findById(idMenu)
+                .ifPresent(menu -> {
+                    menu.setStock(stock);
+                    repository.save(menu);
+                });
     }
 
     @Override
     public Menu buscarMenu(int idMenu) {
-        Optional<Menu> menu = menuRepository.findById(idMenu);
+        Optional<Menu> menu = repository.findById(idMenu);
         return menu.isPresent() ? menu.get() : null;
     }
 
     @Override
-    public Menu crearMenu(Menu menu) {
-        return menuRepository.save(menu);
+    public int buscarStockProducto(int idMenu) {
+        return repository.getReferenceById(idMenu).getStock();
     }
 
     @Override
-    public List<Menu> eliminarMenu(int idMenu) {
-        menuRepository.deleteById(idMenu);
-        return menuRepository.findAll();
+    public double buscarPrecioProducto(int idMenu) {
+        return repository.getReferenceById(idMenu).getPrecio();
     }
 }

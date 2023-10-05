@@ -1,4 +1,4 @@
-package io.ruben.micromenu.models;
+package io.ruben.microcliente.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

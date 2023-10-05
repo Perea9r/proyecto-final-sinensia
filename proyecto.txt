@@ -1,5 +1,5 @@
 Desarrollar un microservicio menu LOCALHOST:8080 y otro microservicio 
-cliente LOCALHOST:8081 que interactuen entre ellos y esten en paquetes diferentes.
+pedidos LOCALHOST:8081 que interactuen entre ellos y esten en paquetes diferentes.
 
 Tabla menu
 -idMenu INT
@@ -7,24 +7,30 @@ Tabla menu
 -precioUnitario DOUBLE
 -stock INT
 
+Tiene modelo, MenuService, MenuServiceImpl, MenuRepository, MenuController
+
 1. Expone una lista con los platos existentes GET
 2. Sube los platos del menú a la base de datos POST
 3. Actualiza el menú PUT
 4. Elimina platos del menú DELETE
+5. Busca un menú GET
 
-Tabla cliente
-- idCliente INT
+Tabla pedidos (cliente)
+- idPedido INT
 - idMenu VARCHAR
-- platosConsumidos DOUBLE
+- platoConsumido DOUBLE
 - totalPrecio DOUBLE
 - fecha LocalDate LOCALDATE
 
-1. Recibe los datos del cliente y los da de alta. POST
-2. Expone una lista con todos los clientes existentes ese dia. GET
-3. Interacciona con el microservicio menu para actualizar la cantidad de stock vendido y 
+
+Tiene modelo, MenuService, MenuServiceImpl, MenuController
+
+1. Expone una lista con todos los menus. GET
+2. Interacciona con el microservicio menu para actualizar la cantidad de stock vendido y 
    obtiene el precio del cliente según el precio del plato consumido, 
    si un plato se queda sin stock se elimina de la base de datos. POST
-4. Se podrá ver cuanto dinero se ha ganado ese día GET
+3. Se podrá ver cuanto dinero se ha ganado ese día que sera la suma de precioUnitario GET
+4. Crear un pedido
 
 
 

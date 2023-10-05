@@ -6,12 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.ruben.micromenu.models.Menu;
@@ -19,34 +16,38 @@ import io.ruben.micromenu.services.MenuService;
 
 @RestController
 public class MenuController {
-
     @Autowired
-    private MenuService menuService;
+    MenuService service;
 
     @GetMapping(value = "/menus", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Menu> getPlatos() {
-        return menuService.getMenus();
+    public ResponseEntity<List<Menu>> platos() {
+        List<Menu> platos = service.getMenu();
+        return new ResponseEntity<>(platos, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/menu", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Menu addPlato(@RequestBody Menu menu) {
-        return menuService.crearMenu(menu);
+    @GetMapping("/menu/{idMenu}")
+    public ResponseEntity<Menu> buscarMenu(@PathVariable int idMenu) {
+        Menu plato = service.buscarMenu(idMenu);
+        if (plato != null) {
+            return new ResponseEntity<>(plato, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
-    @PutMapping(value = "/menu", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Menu>> updatePlato(@RequestBody Menu menu) {
-        menuService.actualizarMenu(menu);
-        return new ResponseEntity<>(menuService.getMenus(), HttpStatus.OK);
+    @PutMapping(value = "/menu/{idMenu}/{stock}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Menu>> actualizarMenu(@PathVariable int idMenu, @PathVariable int stock) {
+        service.actualizarMenu(idMenu, stock);
+        return new ResponseEntity<>(service.getMenu(), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/menu/{idMenu}")
-    public ResponseEntity<List<Menu>> deletePlato(@PathVariable int idMenu) {
-        List<Menu> menus = menuService.eliminarMenu(idMenu);
-        return new ResponseEntity<>(menus, HttpStatus.OK);
+    @GetMapping(value = "/precio/{idMenu}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public double buscarPrecioProducto(@PathVariable int idMenu) {
+        return service.buscarPrecioProducto(idMenu);
     }
 
-    @GetMapping(value = "/menu/{idMenu}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Menu buscarPlato(@PathVariable int idMenu) {
-        return menuService.buscarMenu(idMenu);
+    @GetMapping(value = "/stock/{idMenu}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public int buscarStockProducto(@PathVariable int idMenu) {
+        return service.buscarStockProducto(idMenu);
     }
 }
