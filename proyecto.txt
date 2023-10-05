@@ -1,4 +1,5 @@
-Desarrollar un microservicio menu LOCALHOST:8080 y otro microservicio cliente LOCALHOST:8081 que interactuen entre ellos y esten en paquetes diferentes.
+Desarrollar un microservicio menu LOCALHOST:8080 y otro microservicio 
+cliente LOCALHOST:8081 que interactuen entre ellos y esten en paquetes diferentes.
 
 Tabla menu
 -idMenu INT
