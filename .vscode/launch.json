@@ -9,6 +9,16 @@
             "projectName": "micromenu",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-MicroclienteApplication<microcliente>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "io.ruben.microcliente.MicroclienteApplication",
+            "projectName": "microcliente",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }

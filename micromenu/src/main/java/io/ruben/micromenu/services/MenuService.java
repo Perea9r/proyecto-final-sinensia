@@ -11,7 +11,7 @@ public interface MenuService {
 
     Menu buscarMenu(int idMenu);
 
-    double buscarPrecioProducto(int idMenu);
+    double precioProducto(int idMenu);
 
-    int buscarStockProducto(int idMenu);
+    int stockProducto(int idMenu);
 }

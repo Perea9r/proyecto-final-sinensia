@@ -21,11 +21,27 @@ public class PedidoServiceImpl implements PedidoService {
 
     private String url = "http://localhost:8080/";
 
+    /**
+     * La función "pedidos()" devuelve una lista de todos los objetos Pedido del
+     * pedidoRepository.
+     * 
+     * @return El método devuelve una Lista de objetos Pedido.
+     */
     @Override
     public List<Pedido> pedidos() {
         return pedidoRepository.findAll();
     }
 
+    /**
+     * La función `altaPedido` comprueba el stock y el precio de un artículo del
+     * menú, crea un nuevo
+     * pedido si hay suficiente stock y actualiza la cantidad de stock.
+     * 
+     * @param idMenu   La identificación del menú para el cual se realiza el pedido.
+     * @param unidades El parámetro "unidades" representa el número de unidades de
+     *                 un elemento del menú
+     *                 que el usuario quiere pedir.
+     */
     @Override
     public void altaPedido(int idMenu, int unidades) {
         Integer stockMenu = restTemplate.getForObject(url + "stock/" + idMenu, Integer.class);
