@@ -4,10 +4,8 @@ pedidos LOCALHOST:8081 que interactuen entre ellos y esten en paquetes diferente
 Tabla menu
 -idMenu INT
 -plato VARCHAR
--precioUnitario DOUBLE
+-precio DOUBLE
 -stock INT
-
-Tiene modelo, MenuService, MenuServiceImpl, MenuRepository, MenuController
 
 1. Expone una lista con los platos existentes GET
 2. Sube los platos del menú a la base de datos POST
@@ -17,17 +15,14 @@ Tiene modelo, MenuService, MenuServiceImpl, MenuRepository, MenuController
 
 Tabla pedidos (cliente)
 - idPedido INT
-- idMenu VARCHAR
-- platoConsumido DOUBLE
-- totalPrecio DOUBLE
+- idMenu INT
+- unidades DOUBLE
+- total DOUBLE
 - fecha LocalDate LOCALDATE
-
-
-Tiene modelo, MenuService, MenuServiceImpl, MenuController
 
 1. Expone una lista con todos los menus. GET
 2. Interacciona con el microservicio menu para actualizar la cantidad de stock vendido y 
-   obtiene el precio del cliente según el precio del plato consumido, 
+   obtiene el precio del cliente según el precio de los platos consumidos, 
    si un plato se queda sin stock se elimina de la base de datos. POST
 3. Se podrá ver cuanto dinero se ha ganado ese día que sera la suma de precioUnitario GET
 4. Crear un pedido

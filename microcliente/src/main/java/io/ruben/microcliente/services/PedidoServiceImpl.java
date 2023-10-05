@@ -1,5 +1,10 @@
 package io.ruben.microcliente.services;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -20,6 +25,7 @@ public class PedidoServiceImpl implements PedidoService {
     PedidoRepository pedidoRepository;
 
     private String url = "http://localhost:8080/";
+    private static final String ERROR_ELIMINANDO_MENU = "Error eliminando el menú";
 
     /**
      * La función "pedidos()" devuelve una lista de todos los objetos Pedido del
@@ -33,30 +39,43 @@ public class PedidoServiceImpl implements PedidoService {
     }
 
     /**
-     * La función `altaPedido` comprueba el stock y el precio de un artículo del
-     * menú, crea un nuevo
-     * pedido si hay suficiente stock y actualiza la cantidad de stock.
+     * La función `altaPedido` crea un nuevo pedido comprobando la disponibilidad de
+     * stock, calculando el
+     * precio total, guardando el pedido en el repositorio, actualizando el stock y
+     * eliminando el menú si el stock se agota.
      * 
      * @param idMenu   La identificación del menú para el cual se realiza el pedido.
      * @param unidades El parámetro "unidades" representa el número de unidades de
-     *                 un elemento del menú
-     *                 que el usuario quiere pedir.
+     *                 un elemento del menú que
+     *                 el usuario quiere pedir.
      */
     @Override
     public void altaPedido(int idMenu, int unidades) {
         Integer stockMenu = restTemplate.getForObject(url + "stock/" + idMenu, Integer.class);
         Double precioMenu = restTemplate.getForObject(url + "precio/" + idMenu, Double.class);
 
-        if (stockMenu != null && precioMenu != null && stockMenu > unidades
-                && (restTemplate.getForObject(url + "precio/" + idMenu, Double.class) != null)) {
-
-            double totalPedido = precioMenu
-                    * unidades;
-
+        if (stockMenu != null && precioMenu != null && stockMenu >= unidades) {
+            double totalPedido = precioMenu * unidades;
             pedidoRepository.save(new Pedido(0, idMenu, unidades, totalPedido, LocalDate.now()));
-
-            restTemplate.put(url + "menu/" + idMenu + "/" + (stockMenu - unidades),
-                    Menu.class);
+            restTemplate.put(url + "menu/" + idMenu + "/" + (stockMenu - unidades), Menu.class);
+            if (stockMenu == unidades) {
+                HttpClient client = HttpClient.newHttpClient();
+                HttpRequest request = HttpRequest.newBuilder()
+                        .uri(URI.create("http://localhost:8081/menu/" + idMenu))
+                        .DELETE()
+                        .build();
+                try {
+                    HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                    if (response.statusCode() != 200) {
+                        throw new NullPointerException(ERROR_ELIMINANDO_MENU);
+                    }
+                } catch (IOException e) {
+                    throw new NullPointerException(ERROR_ELIMINANDO_MENU);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    throw new NullPointerException(ERROR_ELIMINANDO_MENU);
+                }
+            }
         }
     }
 }
