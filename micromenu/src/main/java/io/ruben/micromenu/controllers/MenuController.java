@@ -6,9 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.ruben.micromenu.models.Menu;
@@ -68,7 +71,8 @@ public class MenuController {
      *         código HttpStatus de OK.
      */
     @PutMapping(value = "/menu/{idMenu}/{stock}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Menu>> actualizarMenu(@PathVariable int idMenu, @PathVariable int stock) {
+    public ResponseEntity<List<Menu>> actualizarMenu(@PathVariable int idMenu,
+            @PathVariable int stock) {
         service.actualizarMenu(idMenu, stock);
         return new ResponseEntity<>(service.getMenu(), HttpStatus.OK);
     }
@@ -100,4 +104,36 @@ public class MenuController {
     public int stockProducto(@PathVariable int idMenu) {
         return service.stockProducto(idMenu);
     }
+
+    /**
+     * Esta función crea un nuevo elemento de menú y devuelve el elemento de menú
+     * creado como respuesta.
+     * 
+     * @param menu El parámetro "menú" es de tipo Menú y representa el objeto de
+     *             menú que se pasa en el
+     *             cuerpo de la solicitud.
+     * @return El método devuelve un objeto ResponseEntity con el código de estado
+     *         HttpStatus.CREATED y el
+     *         cuerpo que contiene el objeto Menú recién creado.
+     */
+    @PostMapping("/menu")
+    public ResponseEntity<Menu> crearMenu(@RequestBody Menu menu) {
+        Menu nuevoMenu = service.crearMenu(menu);
+        return ResponseEntity.status(HttpStatus.CREATED).body(nuevoMenu);
+    }
+
+    /**
+     * Esta función de Java elimina un elemento de menú según su ID y devuelve una
+     * entidad de respuesta sin
+     * contenido.
+     * 
+     * @param idMenu La identificación del menú que debe eliminarse.
+     * @return El método devuelve un objeto ResponseEntity con un tipo Void.
+     */
+    @DeleteMapping("/menu/{idMenu}")
+    public ResponseEntity<Void> eliminarMenu(@PathVariable int idMenu) {
+        service.eliminarMenu(idMenu);
+        return ResponseEntity.noContent().build();
+    }
+
 }

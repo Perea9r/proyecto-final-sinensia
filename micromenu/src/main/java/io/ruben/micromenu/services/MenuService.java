@@ -14,4 +14,8 @@ public interface MenuService {
     double precioProducto(int idMenu);
 
     int stockProducto(int idMenu);
+
+    Menu crearMenu(Menu menu);
+
+    void eliminarMenu(int idMenu);
 }

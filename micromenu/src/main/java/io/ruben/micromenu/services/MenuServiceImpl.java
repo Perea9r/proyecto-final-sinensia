@@ -67,6 +67,14 @@ public class MenuServiceImpl implements MenuService {
         return repository.getReferenceById(idMenu).getStock();
     }
 
+    public Menu crearMenu(Menu menu) {
+        return repository.save(menu);
+    }
+
+    public void eliminarMenu(int idMenu) {
+        repository.deleteById(idMenu);
+    }
+
     /**
      * La función `precioProducto` devuelve el precio de un producto según su
      * ID de menú.
