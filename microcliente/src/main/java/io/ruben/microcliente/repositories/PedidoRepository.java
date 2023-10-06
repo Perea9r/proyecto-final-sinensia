@@ -23,18 +23,4 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
      */
     @Query(value = "SELECT SUM(total) FROM Pedido WHERE fecha = :fecha")
     Double obtenerTotalPedidosPorFecha(@Param("fecha") LocalDate fecha);
-
-    /**
-     * Esta función recupera una lista de menús que se han consumido dentro de un
-     * rango de fechas
-     * específico y tienen suficiente stock disponible.
-     * 
-     * @param fechaInicio La fecha de inicio de la consulta.
-     * @param fechaFin    La fecha de finalización del periodo del que deseas
-     *                    recuperar los menús consumidos.
-     * @param menuId      El parámetro menuId se utiliza para especificar el ID del
-     *                    menú del que desea recuperar
-     *                    los menús consumidos.
-     * @return El método devuelve una lista de objetos de menú.
-     */
 }
