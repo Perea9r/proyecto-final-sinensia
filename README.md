@@ -29,7 +29,7 @@ Este proyecto es un ejemplo de microservicio con Spring Boot. El microservicio s
 ___
 **GET /pedidos** - Obtener todos los pedidos.
 **POST /pedido/{idPedido}/{unidades}** Da de alta un pedido.
-**GET /total/{fecha}** - Retorna el total de un pedido por fecha.
+**GET /pedido/{fecha}** - Retorna el total de un pedido por fecha.
 
 ## Licencia
 

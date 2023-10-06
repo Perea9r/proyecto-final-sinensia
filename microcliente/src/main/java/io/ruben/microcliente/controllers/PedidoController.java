@@ -61,7 +61,7 @@ public class PedidoController {
      *              fecha de la base de datos.
      * @return El método devuelve un objeto ResponseEntity con un valor Doble.
      */
-    @GetMapping("/total/{fecha}")
+    @GetMapping(value = "/pedido/{fecha}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Double> obtenerTotalPedidosPorFecha(
             @PathVariable("fecha") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha) {
         Double total = pedidoRepository.obtenerTotalPedidosPorFecha(fecha);
@@ -82,4 +82,23 @@ public class PedidoController {
             super(message);
         }
     }
+
+    /**
+     * Esta función recupera una lista de menús que se han consumido dentro de un
+     * rango de fechas
+     * específico y tienen una ID de menú específica.
+     * 
+     * @param fechaInicio El parámetro "fechaInicio" es de tipo LocalDate y
+     *                    representa la fecha de inicio
+     *                    de filtrado de los menús consumidos por stock.
+     * @param fechaFin    El parámetro `fechaFin` es de tipo `LocalDate` y
+     *                    representa la fecha de finalización
+     *                    del filtrado de los menús.
+     * @param menuId      El parámetro `menuId` se utiliza para especificar el ID
+     *                    del menú del cual desea
+     *                    obtener los menús consumidos.
+     * @return El método devuelve un objeto ResponseEntity que contiene una lista de
+     *         objetos de menú y un
+     *         código HttpStatus de OK.
+     */
 }

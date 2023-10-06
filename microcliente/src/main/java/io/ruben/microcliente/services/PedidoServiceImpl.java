@@ -78,4 +78,19 @@ public class PedidoServiceImpl implements PedidoService {
             }
         }
     }
+
+    /**
+     * La función devuelve una lista de menús que se han consumido según la
+     * disponibilidad de existencias
+     * dentro de un rango de fechas y un ID de menú específicos.
+     * 
+     * @param fechaInicio La fecha de inicio del periodo del que se quieren obtener
+     *                    los menús consumidos.
+     * @param fechaFin    La fecha de finalización del periodo del que se quieren
+     *                    obtener los menús
+     *                    consumidos.
+     * @param menuId      El ID del menú del que deseas obtener los menús
+     *                    consumidos.
+     * @return Se devuelve una lista de objetos de menú.
+     */
 }
