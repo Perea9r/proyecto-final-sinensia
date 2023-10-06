@@ -5,6 +5,7 @@ Este proyecto es un ejemplo de microservicio con Spring Boot. El microservicio s
 ## Requisitos
 
 - Java 17 🍵
+- Maven 3.9 🍵
 - Spring Boot 3.1.4 🍃
 - Spring Boot Web Starter 🍃
 - H2 Database 💽
